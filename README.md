@@ -20,7 +20,6 @@
 
 The RMF Industrial project provides RMF services for Manufacturing and Logistics.
 
-
 ## Summary
 
 The RMF Industrial project tries to adopt the new [Next Gen RMF interfaces](https://github.com/open-rmf/next_gen_prototype)
@@ -45,15 +44,38 @@ The hosted documentation is available at <https://dev.rmf-industrial.org/latest>
 | Task Scheduler | <https://github.com/ros-industrial/rmf2_scheduler> |
 | Web UI | <https://github.com/ros-industrial/rmf2-ui> |
 
-## How to start
+## Setup Instructions
 
-Use the development mode
+Clone the `rmf_industrial` repo to your home folder (use `release-v0.2.0rc1` branch as of 20 Oct 2026).
 
-```bash
+```sh
+git clone --recursive https://github.com/ros-industrial/rmf_industrial -b release-v0.2.0rc1
+cd ~/rmf_industrial
+```
+
+### Launch RMF-Industrial Core Services
+
+Run the following commands to launch the RMF Industrial Core Services
+
+```sh
 docker compose -f docker-compose.dev.yml up -d
 ```
 
+This runs the essential communication broker for RMF Industrial Services
+- RabbitMQ Broker
+- Mosquitto MQTT Broker
+
+And the following RMF2 Services
+- VDA5050 Master
+- Robot Execution System
+  - Plan Server
+  - Plan Executor
+- Task Orchestrator
+- Task Scheduler
+
 ## Demonstrations
+
+### Warehouse Simulation
 
 <table>
   <thead>
@@ -79,42 +101,51 @@ docker compose -f docker-compose.dev.yml up -d
   </tbody>
 </table>
 
-### Warehouse Simulation Setup
+#### Simulation Setup
 
-Download the latest simulation
-
-```sh
-curl -OL https://downloads.rmf-industrial.org/UE5Demos/RMF2_SIM_v0.1.0.zip
-```
-
-Unzip the simulation
+Download and unpack the latest UE5 simulation build in your home folder:
 
 ```sh
-unzip RMF2_SIM_v0.1.0.zip
-cd ./RMF2_SIM_v0.1.0
+curl -OL https://downloads.rmf-industrial.org/UE5Demos/RMF2_SIM_v0.2.0.zip
+
+unzip RMF2_SIM_0.2.0.zip
 ```
 
 Start the simulation
+
 ```sh
+cd ~/RMF2_SIM_v0.2.0
 ./Linux/RMF2_SIM.sh
 ```
 
 The simulation should start full screen matching your screen resolution.
 You can press `Alt + Enter` to toggle between fullscreen and windowed mode.
-
 You can also start the simulation in a windowed mode with specific resolution
+
 ```sh
 ./Linux/RMF2_SIM.sh -windowed -resx 1920 -resy 1080
 ```
 
 The simulation controls are similar to a typical game.
-Here are the basics
+Here are the basics:
+
 - Movement: Keyboard `W A S D` or Controller Left Stick
   - `W`, `S` move forward and backward
   - `A`, `D` pan left and right
   - `Q`, `E` move up and down
-- View: Mouse  or Controller Right Stick
+
+  View: Mouse  or Controller Right Stick
   - click on the screen and hold to move around
 
 Other controls
 - Tab `M` to show Map marker
+
+#### Usage
+
+![](docs/imgs/rmf2-webui.png)
+
+WebUI grid showing realtime positions of the robots.
+
+![](docs/imgs/rmf2-sim.png)
+
+Simulation showing realtime positions of the robots.
