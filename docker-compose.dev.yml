@@ -213,3 +213,28 @@ services:
       - "traefik.http.middlewares.rmf2-ts-strip.stripprefix.prefixes=/task_scheduler"
       - "traefik.http.routers.rmf2-ts.middlewares=rmf2-ts-strip"
       - "traefik.http.services.rmf2-ts.loadbalancer.server.port=8000"
+
+  rmf2-ui:
+    build:
+      context: ./services/rmf2-ui
+      dockerfile: Dockerfile.dev
+    develop:
+      watch:
+        - action: sync
+          path: ./services/rmf2-ui/apps
+          target: /app/apps
+          ignore:
+            - node_modules/
+        - action: sync
+          path: ./services/rmf2-ui/packages
+          target: /app/packages
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./services/rmf2-ui/package.json
+        - action: rebuild
+          path: ./services/rmf2-ui/pnpm-lock.yaml
+    networks:
+      - rmf2-net
+    ports:
+      - "${RMF2_UI_PORT:-3000}:3000"

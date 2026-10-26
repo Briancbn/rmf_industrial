@@ -72,6 +72,7 @@ And the following RMF2 Services
   - Plan Executor
 - Task Orchestrator
 - Task Scheduler
+- Web UI (available at <http://localhost:3000>)
 
 ## Demonstrations
 
@@ -142,9 +143,22 @@ Other controls
 
 #### Usage
 
+Open the Web UI at <http://localhost:3000>.
+
 ![](docs/imgs/rmf2-webui.png)
 
-WebUI grid showing realtime positions of the robots.
+The default view shows a grid with realtime positions of the robots.
+
+To dispatch a task:
+
+1. Click the **Plans** tab.
+2. Select a robot from the robot list.
+3. Select a destination waypoint on the map.
+4. Click **Preview** to review the planned route.
+5. Click **Submit** to dispatch the task.
+
+> [!NOTE]
+> **Assign Shortest Path** is a debug option that sends a navigation order directly to the VDA5050 Master, bypassing the Task Orchestrator.
 
 ![](docs/imgs/rmf2-sim.png)
 
